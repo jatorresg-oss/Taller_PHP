@@ -5,7 +5,20 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 }
 
 
-
 $value = $_POST["value"];
-$mod = 3;
+$number = (int) $value;
 
+if ($number == 0) {
+    $value .= $value;
+    $result = $value;
+}
+
+while ($number != 0) {
+    $result .= $number % 2;
+    $number = intdiv($number, 2);
+}
+
+$result = strrev($result);
+
+
+header("Location: ../convertion.php?b=$result&v=$value");

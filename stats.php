@@ -4,13 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cálculos Estadísticos</title>
+    <title>Estadísticos</title>
 </head>
 
 <body>
     <h1>Calcular Estadisticos Básicos</h1>
     <div>
-        <p>Por favor, escriba la cantidad de datos que desea ingresar.</p>
         <p>Los datos deben ser enviados consecutivamente separados por un espacio " ".</p>
         <form action="Model/c_stats.php" method="post">
             <input type="text" name="text" placeholder="1 2 3 4" required>
@@ -28,6 +27,9 @@
         echo "<p>Moda: $mode</p>";
     }
     ?>
+
+    <br>
+    <a href="index.php">Volver</a>
 </body>
 
 </html>

@@ -1,0 +1,70 @@
+@font-face {
+  font-family: "Minecraft";
+  src: url("../fonts/Minecraft.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.title {
+  font-size: 110%;
+  gap: 3rem 1.5rem;
+  padding: 0rem 2.5rem;
+}
+
+.Main_bar {
+  font-family: "Minecraft", sans-serif;
+  -webkit-font-smoothing: none;
+  background-color: #0b6000;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 1000;
+}
+
+.options ul {
+  align-items: center;
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.options > ul > li > a {
+  border-bottom: 2px solid transparent;
+  color: #fff;
+  font-weight: 600;
+  font-size: 90%;
+  padding: 0.3rem 0.2rem;
+  text-decoration: none;
+  transition:
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+div {
+  display: flex;
+}
+
+h2 {
+  color: black;
+}
+
+.php {
+  position: relative;
+  animation: movingPHP 2s ease-in-out infinite alternate;
+}
+
+@keyframes movingPHP {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(2px);
+  }
+}

@@ -22,6 +22,9 @@
         echo "<p>Acrónimo: $initials</p>";
     }
     ?>
+
+    <br>
+    <a href="index.php">Volver</a>
 </body>
 
 </html>

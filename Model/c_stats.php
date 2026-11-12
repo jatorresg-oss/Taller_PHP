@@ -19,16 +19,19 @@ if (!preg_match($patron, $text)) {
 }
 
 //creación de array con los numeros enviados
-for ($i = 0; $i < mb_strlen($text); $i++) {
-    if  (ctype_digit(mb_substr($text, $i,1)) && mb_substr($text, $i + 1,1) == " ") {
+for ($i = 0; $i < mb_strlen($text, 'UTF-8'); $i++) {
+    if (ctype_digit(mb_substr($text, $i, 1)) && mb_substr($text, $i + 1, 1) == " ") {
+        $numbers[$count] .= mb_substr($text, $i, 1);
         $count++;
-    } elseif (ctype_digit(mb_substr($text, $i,1)) ) {
+    } elseif (ctype_digit(mb_substr($text, $i, 1))) {
         $numbers[$count] .= mb_substr($text, $i, 1);
     }
 }
 
 //sumatoria de los numeros
-$sum = array_sum($numbers);
+for ($i = 0; $i < count($numbers); $i++) {
+    $sum += $numbers[$i];
+}
 
 //media
 $avg = $sum / count($numbers);
@@ -38,5 +41,5 @@ $max = max($frecuency);
 $mode = array_search($max, $frecuency);
 
 
-header("Location: ../stats.php?a=$sum&m=$mode");
+header("Location: ../stats.php?a=$avg&m=$mode");
 

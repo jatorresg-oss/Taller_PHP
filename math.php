@@ -20,7 +20,7 @@
             <button type="submit">Enviar</button>
         </form>
     </div>
-    
+
     <?php
     if (!empty($_GET["error"])) {
         echo "<p>El valor ingresado no es un número</p>";
@@ -30,6 +30,9 @@
         echo "<p>Resultado: $result</p>";
     }
     ?>
+
+    <br>
+    <a href="index.php">Volver</a>
 </body>
 
 </html>
