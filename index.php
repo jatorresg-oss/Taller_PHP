@@ -16,10 +16,12 @@ $title = "<?php?>";
 <body>
     <header class="Main_bar">
         <div class="title">
-            <h1>Taller </h1>
-            <div class="php">
-                <?php echo ("<h1>" . htmlspecialchars($title) . "</h1>"); ?>
-            </div>
+            <a href="index.php">
+                <h1>Taller </h1>
+                <div class="php">
+                    <?php echo ("<h1>" . htmlspecialchars($title) . "</h1>"); ?>
+                </div>
+            </a>
         </div>
         <div class="options">
             <ul>

@@ -1,3 +1,9 @@
+* {
+  font-family: "Minecraft", sans-serif;
+  -webkit-font-smoothing: none;
+  color: #fff;
+}
+
 @font-face {
   font-family: "Minecraft";
   src: url("../fonts/Minecraft.ttf") format("truetype");
@@ -5,26 +11,30 @@
   font-style: normal;
 }
 
-.title {
+body {
+  background-color: #052c00;
+}
+
+.title a {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
   font-size: 110%;
   gap: 3rem 1.5rem;
-  padding: 0rem 2.5rem;
+  padding: 0rem 9rem 0rem 0rem;
 }
 
 .Main_bar {
-  font-family: "Minecraft", sans-serif;
-  -webkit-font-smoothing: none;
   background-color: #0b6000;
   color: #fff;
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
+  gap: 15px;
   padding: 1rem 2rem;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: auto;
+  height: 15%;
   z-index: 1000;
 }
 
@@ -47,14 +57,6 @@
     color 0.3s ease;
 }
 
-div {
-  display: flex;
-}
-
-h2 {
-  color: black;
-}
-
 .php {
   position: relative;
   animation: movingPHP 2s ease-in-out infinite alternate;
@@ -62,9 +64,55 @@ h2 {
 
 @keyframes movingPHP {
   0% {
-    transform: translateY(0px);
+    transform: translateY(-5px);
   }
   100% {
-    transform: translateY(2px);
+    transform: translateY(5px);
   }
 }
+
+div {
+  display: flex;
+}
+
+h2 {
+  scroll-margin-top: 80px;
+  color: black;
+}
+
+.app {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 11%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  color: #fff;
+  background-color: #0b6000;
+  padding: 2rem;
+  gap: 0rem 10rem;
+}
+
+.r {
+  text-align: center;
+  color: #fff;
+}
+
+.back {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 5px;
+  text-decoration: none;
+  color: #fff;
+  background-color: red;
+}
+
+.op, input, .option {
+  background-color: rgb(109, 109, 109);
+}
+
+
