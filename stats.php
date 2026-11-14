@@ -9,6 +9,7 @@ $title = "<?php?>";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estadísticos</title>
     <link rel="stylesheet" href="CSS/main_bar.css" />
+    <link rel="stylesheet" href="CSS/stats.css" />
 </head>
 
 <body>

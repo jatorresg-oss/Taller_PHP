@@ -35,8 +35,53 @@ $title = "<?php?>";
             </ul>
         </div>
     </header>
-
-    <h2>Menú</h2>
+    <div class="App_list">
+        <h1>Menú</h1>
+        <div>
+            <h2>Acrónimo</h2>
+            <p>
+                Escribe una frase o un nombre compuesto por varias palabras y obtén automáticamente sus iniciales. Por
+                ejemplo, al escribir «Portable Network Graphics», recibirás «PNG».
+            </p>
+            <button class="Btn_list"><a href="acronym.php">Acrónimo</a></button>
+            <h2>Fibonacci</h2>
+            <p>
+                Ingresa un número y elige si deseas conocer su sucesión de Fibonacci o su factorial. La aplicación
+                realizará el cálculo y te mostrará el resultado de forma sencilla.
+            </p>
+            <button class="Btn_list"><a href="math.php">Fibonacci</a></button>
+            <h2>Estadistica</h2>
+            <p>
+                Ingresa los números que deseas analizar y obtén sus resultados estadísticos. La aplicación te permitirá
+                conocer el promedio, la media y la moda de los datos.
+            </p>
+            <button class="Btn_list"><a href="stats.php">Estadistica</a></button>
+            <h2>Conjuntos</h2>
+            <p>
+                Escribe los elementos de dos conjuntos y descubre cuáles tienen en común, cuáles son diferentes y qué
+                elementos reúnen entre ambos.
+            </p>
+            <button class="Btn_list"><a href="set.php">Conjuntos</a></button>
+            <h2>Binario</h2>
+            <p>
+                Ingresa cualquier número entero y conviértelo fácilmente al sistema binario. La aplicación te mostrará
+                su equivalente utilizando únicamente ceros y unos.
+            </p>
+            <button class="Btn_list"><a href="convertion.php">Binario</a></button>
+            <h2>Árbol</h2>
+            <p>
+                Ingresa dos recorridos de un árbol y observa cómo se reconstruye su estructura. También podrás
+                visualizar cómo se organiza la información y conocer sus diferentes recorridos.
+            </p>
+            <button class="Btn_list"><a href="tree.php">Árbol</a></button>
+            <h2>Calculadora</h2>
+            <p>
+                Realiza operaciones matemáticas básicas con números enteros o decimales. Además, podrás consultar las
+                operaciones que has realizado anteriormente o borrar el historial cuando lo necesites.
+            </p>
+            <button class="Btn_list"><a href="calculator.php">Calculadora</a></button>
+        </div>
+    </div>
 </body>
 
 </html>

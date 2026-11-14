@@ -9,6 +9,7 @@ $title = "<?php?>";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculos Matemáticos</title>
     <link rel="stylesheet" href="CSS/main_bar.css" />
+    <link rel="stylesheet" href="CSS/math.css" />
 </head>
 
 <body>
@@ -38,7 +39,7 @@ $title = "<?php?>";
         <p>Por Favor, ingrese el número de repeticiones que desea obtener</p>
         <form action="Model/c_math.php" method="post">
             <input type="text" name="value" required>
-            <select name="option" id="option" class="op">
+            <select name="option" id="option" class="option">
                 <option value="1">Fibonacci</option>
                 <option value="2">Factorial</option>
             </select>

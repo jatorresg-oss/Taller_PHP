@@ -2,6 +2,7 @@
   font-family: "Minecraft", sans-serif;
   -webkit-font-smoothing: none;
   color: #fff;
+  text-decoration: none;
 }
 
 @font-face {
@@ -17,7 +18,6 @@ body {
 
 .title a {
   text-decoration: none;
-  color: #fff;
   display: flex;
   font-size: 110%;
   gap: 3rem 1.5rem;
@@ -26,7 +26,6 @@ body {
 
 .Main_bar {
   background-color: #0b6000;
-  color: #fff;
   display: flex;
   gap: 15px;
   padding: 1rem 2rem;
@@ -40,21 +39,27 @@ body {
 
 .options ul {
   align-items: center;
+  align-items: center;
+  text-align: center;
   display: flex;
   gap: 1.5rem;
   list-style: none;
 }
 
 .options > ul > li > a {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   border-bottom: 2px solid transparent;
-  color: #fff;
   font-weight: 600;
   font-size: 90%;
-  padding: 0.3rem 0.2rem;
+  padding: 0.3rem 0.2rem 0rem 0rem;
   text-decoration: none;
-  transition:
-    border-color 0.3s ease,
-    color 0.3s ease;
+  transition: color 0.3s;
+}
+
+.options > ul > li > a:hover {
+  color: #d0ff28;
 }
 
 .php {
@@ -71,48 +76,33 @@ body {
   }
 }
 
-div {
-  display: flex;
-}
-
-h2 {
-  scroll-margin-top: 80px;
-  color: black;
-}
-
-.app {
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  margin-left: 15%;
-  margin-right: 15%;
-  margin-top: 11%;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
-  color: #fff;
-  background-color: #0b6000;
-  padding: 2rem;
-  gap: 0rem 10rem;
-}
-
-.r {
-  text-align: center;
-  color: #fff;
-}
-
 .back {
   align-items: center;
   text-align: center;
   justify-content: center;
   padding: 5px;
   text-decoration: none;
-  color: #fff;
-  background-color: red;
+  background-color: rgb(227, 2, 2);
 }
 
-.op, input, .option {
+div {
+  flex-direction: column;
+}
+
+.App_list {
+  margin-left: 3%;
+  margin-right: 23%;
+  margin-top: 11%;
+  display: flex;
+}
+
+.Btn_list {
   background-color: rgb(109, 109, 109);
+  width: 115px;
+  height: 35px;
+  transition: transform 0.3s;
 }
 
-
+.Btn_list:hover {
+  transform: translateY(-4px);
+}

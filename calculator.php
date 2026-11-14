@@ -10,6 +10,7 @@ $title = "<?php?>";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora</title>
     <link rel="stylesheet" href="CSS/main_bar.css" />
+    <link rel="stylesheet" href="CSS/calculator.css" />
 </head>
 
 <body>
@@ -34,8 +35,8 @@ $title = "<?php?>";
             </ul>
         </div>
     </header>
-    <h1>Calculadora</h1>
     <div class="app">
+    <h1>Calculadora</h1>
         <form action="Model/c_calculator.php" method="post">
             <label>Valor 1</label>
             <br>
@@ -45,7 +46,7 @@ $title = "<?php?>";
             <br>
             <input type="text" name="value2">
             <br>
-            <select name="option" id="option" class="op">
+            <select name="option" id="option" class="option">
                 <option value="1">Suma (+)</option>
                 <option value="2">Resta (-)</option>
                 <option value="3">Multiplicación (*)</option>
@@ -74,7 +75,7 @@ $title = "<?php?>";
     <div>
         <form action="calculator.php" method="get">
             <input type="text" value="1" name="rq" hidden>
-            <button type="submit" class="back">Borrar Historial</button>
+            <button type="submit" class="op ">Borrar Historial</button>
         </form>
     </div>
     <?php

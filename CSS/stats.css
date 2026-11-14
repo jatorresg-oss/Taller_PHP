@@ -1,0 +1,45 @@
+.app {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 11%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  background-color: #3d0060;
+  padding: 2rem;
+  gap: 0rem 10rem;
+  border-radius: 40px;
+  border-width: 200px;
+  border-color: rgb(22, 22, 22);
+}
+
+.r {
+  text-align: center;
+}
+
+.op {
+  background-color: rgb(109, 109, 109);
+}
+
+input {
+  background-color: rgb(22, 22, 22);
+}
+
+.option {
+  background-color: #18002c;
+}
+
+body {
+  background-color: #18002c;
+}
+
+.Main_bar {
+  background-color: #3d0060;
+}
+
+.options > ul > li > a:hover {
+  color: #b028ff;
+}

@@ -1,0 +1,152 @@
+.app {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 11%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  background-color: #366000;
+  padding: 2rem;
+  gap: 0rem 10rem;
+  border-radius: 40px;
+  border-width: 200px;
+  border-color: rgb(22, 22, 22);
+}
+
+.r {
+  text-align: center;
+}
+
+.op {
+  background-color: rgb(109, 109, 109);
+}
+
+input {
+  background-color: rgb(22, 22, 22);
+}
+
+.option {
+  background-color: #122c00;
+}
+
+body {
+  background-color: #122c00;
+}
+
+.Main_bar {
+  background-color: #366000;
+}
+
+.options > ul > li > a:hover {
+  color: #6cff28;
+}
+
+.tree-result {
+  margin: 2rem 15% 0;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  border: 1px solid #6cff28;
+  border-radius: 0.75rem;
+  background-color: #122c00;
+  text-align: center;
+}
+
+.tree-wrapper {
+  width: 100%;
+  padding: 0.5rem 0 1rem;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.tree {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.tree ul {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 20px 0 0;
+  list-style: none;
+}
+
+.tree li {
+  position: relative;
+  padding: 20px 8px 0;
+  text-align: center;
+}
+
+.tree > li {
+  padding-top: 0;
+}
+
+.tree li::before,
+.tree li::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50%;
+  border-top: 2px solid #9fe870;
+}
+
+.tree li::before {
+  right: 50%;
+}
+
+.tree li::after {
+  left: 50%;
+}
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+  display: none;
+}
+
+.tree ul::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 20px;
+  border-left: 2px solid #9fe870;
+}
+
+.tree > li::before,
+.tree > li::after,
+.tree > li > .stem {
+  display: none;
+}
+
+.tree .stem {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 20px;
+  border-left: 2px solid #9fe870;
+}
+
+.tree .node {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border: 2px solid #6cff28;
+  border-radius: 999px;
+  background-color: #1d3d00;
+  color: #ffffff;
+  font-weight: bold;
+  line-height: 1;
+}

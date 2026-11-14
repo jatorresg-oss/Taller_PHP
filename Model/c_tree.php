@@ -1,550 +1,253 @@
 <?php
 
-class Nodo {
-
-    public $valor;
-    public $izquierdo;
-    public $derecho;
-
-    public function __construct($valor) {
-
-        $this->valor = $valor;
-        $this->izquierdo = null;
-        $this->derecho = null;
-
-    }
+// Si se abre este archivo directamente sin enviar el formulario, vuelve al inicio.
+// tree.php también lo incluye para poder usar sus funciones.
+if ($_SERVER["REQUEST_METHOD"] != "POST" && basename($_SERVER["PHP_SELF"]) == "c_tree.php") {
+    header("Location: ../index.php");
+    exit;
 }
 
-
-// ==========================================
-// CLASE ARBOL BINARIO
-// ==========================================
-
-class ArbolBinario {
-
-    private $raiz;
-
-
-    // CONSTRUIR EL ARBOL
-    public function construir($pre, $in, $post) {
-
-        if (!empty($pre) && !empty($in)) {
-
-            // Si hay preorden e inorden, se utilizan estos dos
-            $this->raiz = $this->desdePreIn($pre, $in);
-
-        } else if (!empty($in) && !empty($post)) {
-
-            $this->raiz = $this->desdePostIn($post, $in);
-
-        } else if (!empty($pre) && !empty($post)) {
-
-            $this->raiz = $this->desdePrePost($pre, $post);
-
-        } else {
-
-            throw new Exception("Debes ingresar minimo dos recorridos.");
-
-        }
-
-    }
-
-
-    // ==========================================
-    // CONSTRUIR CON PREORDEN E INORDEN
-    // ==========================================
-
-    private function desdePreIn($pre, $in) {
-
-        if (count($pre) == 0) {
-            return null;
-        }
-
-        // El primer elemento del preorden es la raiz
-        $valor = $pre[0];
-
-        $raiz = new Nodo($valor);
-
-        // Buscar la raiz en el inorden
-        $posicion = array_search($valor, $in);
-
-        if ($posicion === false) {
-            throw new Exception("Los recorridos no coinciden.");
-        }
-
-        // Separar el inorden
-        $inIzquierdo = array_slice($in, 0, $posicion);
-        $inDerecho = array_slice($in, $posicion + 1);
-
-        // Separar el preorden
-        $preIzquierdo = array_slice($pre, 1, $posicion);
-        $preDerecho = array_slice($pre, $posicion + 1);
-
-        // Construir los hijos recursivamente
-        $raiz->izquierdo = $this->desdePreIn(
-            $preIzquierdo,
-            $inIzquierdo
-        );
-
-        $raiz->derecho = $this->desdePreIn(
-            $preDerecho,
-            $inDerecho
-        );
-
-        return $raiz;
-
-    }
-
-
-    // ==========================================
-    // CONSTRUIR CON POSTORDEN E INORDEN
-    // ==========================================
-
-    private function desdePostIn($post, $in) {
-
-        if (count($post) == 0) {
-            return null;
-        }
-
-        // El ultimo elemento del postorden es la raiz
-        $ultimo = count($post) - 1;
-
-        $valor = $post[$ultimo];
-
-        $raiz = new Nodo($valor);
-
-        // Buscar la raiz en el inorden
-        $posicion = array_search($valor, $in);
-
-        if ($posicion === false) {
-            throw new Exception("Los recorridos no coinciden.");
-        }
-
-        // Separar el inorden
-        $inIzquierdo = array_slice($in, 0, $posicion);
-        $inDerecho = array_slice($in, $posicion + 1);
-
-        // Separar el postorden
-        $postIzquierdo = array_slice($post, 0, $posicion);
-
-        $postDerecho = array_slice(
-            $post,
-            $posicion,
-            count($post) - $posicion - 1
-        );
-
-        // Construir los hijos
-        $raiz->izquierdo = $this->desdePostIn(
-            $postIzquierdo,
-            $inIzquierdo
-        );
-
-        $raiz->derecho = $this->desdePostIn(
-            $postDerecho,
-            $inDerecho
-        );
-
-        return $raiz;
-
-    }
-
-
-    // ==========================================
-    // CONSTRUIR CON PREORDEN Y POSTORDEN
-    // ==========================================
-
-    private function desdePrePost($pre, $post) {
-
-        if (count($pre) == 0) {
-            return null;
-        }
-
-        // El primer elemento del preorden es la raiz
-        $raiz = new Nodo($pre[0]);
-
-        if (count($pre) == 1) {
-            return $raiz;
-        }
-
-        // El siguiente elemento es el inicio del subarbol izquierdo
-        $siguiente = $pre[1];
-
-        // Buscar ese elemento en el postorden
-        $postSinRaiz = array_slice($post, 0, count($post) - 1);
-
-        $posicion = array_search($siguiente, $postSinRaiz);
-
-        if ($posicion === false) {
-            throw new Exception("Los recorridos no coinciden.");
-        }
-
-        // Determinar cuantos elementos pertenecen al lado izquierdo
-        $cantidadIzquierda = $posicion + 1;
-
-        // Separar los recorridos
-        $preIzquierdo = array_slice($pre, 1, $cantidadIzquierda);
-
-        $preDerecho = array_slice($pre, $cantidadIzquierda + 1);
-
-        $postIzquierdo = array_slice($post, 0, $cantidadIzquierda);
-
-        $postDerecho = array_slice(
-            $post,
-            $cantidadIzquierda,
-            count($post) - $cantidadIzquierda - 1
-        );
-
-        // Construir los hijos
-        $raiz->izquierdo = $this->desdePrePost(
-            $preIzquierdo,
-            $postIzquierdo
-        );
-
-        $raiz->derecho = $this->desdePrePost(
-            $preDerecho,
-            $postDerecho
-        );
-
-        return $raiz;
-
-    }
-
-
-    // ==========================================
-    // RECORRIDO PREORDEN
-    // ==========================================
-
-    public function obtenerPreorden() {
-
-        return $this->recorrerPreorden($this->raiz);
-
-    }
-
-    private function recorrerPreorden($nodo) {
-
-        $resultado = [];
-
-        if ($nodo != null) {
-
-            // Primero la raiz
-            $resultado[] = $nodo->valor;
-
-            // Despues el hijo izquierdo
-            $izquierdo = $this->recorrerPreorden($nodo->izquierdo);
-
-            // Finalmente el hijo derecho
-            $derecho = $this->recorrerPreorden($nodo->derecho);
-
-            $resultado = array_merge($resultado, $izquierdo, $derecho);
-
-        }
-
-        return $resultado;
-
-    }
-
-
-    // ==========================================
-    // RECORRIDO INORDEN
-    // ==========================================
-
-    public function obtenerInorden() {
-
-        return $this->recorrerInorden($this->raiz);
-
-    }
-
-    private function recorrerInorden($nodo) {
-
-        $resultado = [];
-
-        if ($nodo != null) {
-
-            // Primero el hijo izquierdo
-            $izquierdo = $this->recorrerInorden($nodo->izquierdo);
-
-            $resultado = array_merge($resultado, $izquierdo);
-
-            // Despues la raiz
-            $resultado[] = $nodo->valor;
-
-            // Finalmente el hijo derecho
-            $derecho = $this->recorrerInorden($nodo->derecho);
-
-            $resultado = array_merge($resultado, $derecho);
-
-        }
-
-        return $resultado;
-
-    }
-
-
-    // ==========================================
-    // RECORRIDO POSTORDEN
-    // ==========================================
-
-    public function obtenerPostorden() {
-
-        return $this->recorrerPostorden($this->raiz);
-
-    }
-
-    private function recorrerPostorden($nodo) {
-
-        $resultado = [];
-
-        if ($nodo != null) {
-
-            // Primero el hijo izquierdo
-            $izquierdo = $this->recorrerPostorden($nodo->izquierdo);
-
-            // Despues el hijo derecho
-            $derecho = $this->recorrerPostorden($nodo->derecho);
-
-            $resultado = array_merge($resultado, $izquierdo, $derecho);
-
-            // Finalmente la raiz
-            $resultado[] = $nodo->valor;
-
-        }
-
-        return $resultado;
-
-    }
-
-
-    // ==========================================
-    // MOSTRAR LA ESTRUCTURA DEL ARBOL
-    // ==========================================
-
-    public function mostrarArbol() {
-
-        echo "<pre>";
-
-        $this->dibujar($this->raiz, 0, "RAIZ");
-
-        echo "</pre>";
-
-    }
-
-    private function dibujar($nodo, $nivel, $tipo) {
-
-        if ($nodo != null) {
-
-            echo str_repeat("    ", $nivel);
-            echo $tipo . ": " . htmlspecialchars($nodo->valor) . "\n";
-
-            $this->dibujar($nodo->izquierdo, $nivel + 1, "IZQUIERDO");
-
-            $this->dibujar($nodo->derecho, $nivel + 1, "DERECHO");
-
-        }
-
-    }
-
-}
-
-
-// ==========================================
-// FUNCIONES PARA RECIBIR Y VALIDAR DATOS
-// ==========================================
-
-
-// Convertir el texto recibido en un arreglo
-function convertirRecorrido($texto) {
-
+// Convierte "A, B, C" en ["A", "B", "C"]
+function convertirRecorrido($texto)
+{
     $resultado = [];
 
-    if (trim($texto) != "") {
+    if (trim($texto) == "") {
+        return $resultado;
+    }
 
-        $elementos = explode(",", $texto);
+    $partes = explode(",", $texto);
 
-        foreach ($elementos as $elemento) {
+    for ($i = 0; $i < count($partes); $i++) {
+        $valor = trim($partes[$i]);
 
-            $elemento = trim($elemento);
-
-            if ($elemento == "") {
-                throw new Exception("No puedes dejar elementos vacios.");
-            }
-
-            $resultado[] = $elemento;
-
+        if ($valor != "") {
+            $resultado[] = $valor;
         }
-
     }
 
     return $resultado;
-
 }
 
+// Comprueba si dos recorridos tienen los mismos nodos
+function mismoContenido($a, $b)
+{
+    sort($a);
+    sort($b);
 
-// Verificar que los nodos no se repitan
-function validarRepetidos($recorrido) {
+    return $a == $b;
+}
 
-    if (count($recorrido) != count(array_unique($recorrido))) {
+// Comprueba si un recorrido tiene nodos repetidos
+function tieneRepetidos($lista)
+{
+    return count($lista) != count(array_unique($lista));
+}
 
-        throw new Exception("No se permiten nodos repetidos.");
-
+// Construye el árbol con preorden e inorden
+function crearArbolPreIn($pre, $in)
+{
+    if (count($pre) == 0) {
+        return null;
     }
 
+    $raiz = $pre[0];
+    $posicion = array_search($raiz, $in);
+
+    return [
+        "valor" => $raiz,
+        "izq" => crearArbolPreIn(
+            array_slice($pre, 1, $posicion),
+            array_slice($in, 0, $posicion)
+        ),
+        "der" => crearArbolPreIn(
+            array_slice($pre, $posicion + 1),
+            array_slice($in, $posicion + 1)
+        )
+    ];
+}
+
+// Construye el árbol con postorden e inorden
+function crearArbolPostIn($post, $in)
+{
+    if (count($post) == 0) {
+        return null;
+    }
+
+    $raiz = $post[count($post) - 1];
+    $posicion = array_search($raiz, $in);
+
+    return [
+        "valor" => $raiz,
+        "izq" => crearArbolPostIn(
+            array_slice($post, 0, $posicion),
+            array_slice($in, 0, $posicion)
+        ),
+        "der" => crearArbolPostIn(
+            array_slice($post, $posicion, count($post) - $posicion - 1),
+            array_slice($in, $posicion + 1)
+        )
+    ];
+}
+
+// Construye el árbol con preorden y postorden
+function crearArbolPrePost($pre, $post)
+{
+    if (count($pre) == 0) {
+        return null;
+    }
+
+    $raiz = [
+        "valor" => $pre[0],
+        "izq" => null,
+        "der" => null
+    ];
+
+    if (count($pre) == 1) {
+        return $raiz;
+    }
+
+    $postSinRaiz = array_slice($post, 0, count($post) - 1);
+    $posicion = array_search($pre[1], $postSinRaiz);
+    $cantidadIzquierda = $posicion + 1;
+
+    $raiz["izq"] = crearArbolPrePost(
+        array_slice($pre, 1, $cantidadIzquierda),
+        array_slice($post, 0, $cantidadIzquierda)
+    );
+
+    $raiz["der"] = crearArbolPrePost(
+        array_slice($pre, $cantidadIzquierda + 1),
+        array_slice(
+            $post,
+            $cantidadIzquierda,
+            count($post) - $cantidadIzquierda - 1
+        )
+    );
+
+    return $raiz;
+}
+
+// Obtienen los recorridos del árbol construido
+function obtenerPreorden($nodo, &$lista)
+{
+    if ($nodo == null) {
+        return;
+    }
+
+    $lista[] = $nodo["valor"];
+    obtenerPreorden($nodo["izq"], $lista);
+    obtenerPreorden($nodo["der"], $lista);
+}
+
+function obtenerInorden($nodo, &$lista)
+{
+    if ($nodo == null) {
+        return;
+    }
+
+    obtenerInorden($nodo["izq"], $lista);
+    $lista[] = $nodo["valor"];
+    obtenerInorden($nodo["der"], $lista);
+}
+
+function obtenerPostorden($nodo, &$lista)
+{
+    if ($nodo == null) {
+        return;
+    }
+
+    obtenerPostorden($nodo["izq"], $lista);
+    obtenerPostorden($nodo["der"], $lista);
+    $lista[] = $nodo["valor"];
 }
 
 
-// Verificar que los recorridos tengan los mismos elementos
-function validarElementos($pre, $in, $post) {
+// ==========================================
+// RECIBIR LOS DATOS DEL FORMULARIO
+// ==========================================
 
-    $principal = [];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $pre = convertirRecorrido($_POST["preorden"]);
+    $in = convertirRecorrido($_POST["inorden"]);
+    $post = convertirRecorrido($_POST["postorden"]);
+
+    $cantidad = 0;
 
     if (!empty($pre)) {
-        $principal = $pre;
+        $cantidad++;
+    }
+
+    if (!empty($in)) {
+        $cantidad++;
+    }
+
+    if (!empty($post)) {
+        $cantidad++;
+    }
+
+    if ($cantidad < 2) {
+        header("Location: ../tree.php?error=1");
+        exit;
+    }
+
+    if (tieneRepetidos($pre) || tieneRepetidos($in) || tieneRepetidos($post)) {
+        header("Location: ../tree.php?error=2");
+        exit;
+    }
+
+    $base = [];
+
+    if (!empty($pre)) {
+        $base = $pre;
     } else if (!empty($in)) {
-        $principal = $in;
+        $base = $in;
     } else {
-        $principal = $post;
+        $base = $post;
     }
 
-    sort($principal);
-
-    $recorridos = [$pre, $in, $post];
-
-    foreach ($recorridos as $recorrido) {
-
-        if (!empty($recorrido)) {
-
-            sort($recorrido);
-
-            if ($principal != $recorrido) {
-
-                throw new Exception("Los recorridos deben tener los mismos nodos.");
-
-            }
-
-        }
-
+    if (
+        (!empty($pre) && !mismoContenido($base, $pre)) ||
+        (!empty($in) && !mismoContenido($base, $in)) ||
+        (!empty($post) && !mismoContenido($base, $post))
+    ) {
+        header("Location: ../tree.php?error=3");
+        exit;
     }
 
-}
-
-
-// ==========================================
-// PROCESAR LOS DATOS RECIBIDOS POR POST
-// ==========================================
-
-if (isset($_POST["enviar"])) {
-
-    try {
-
-        // Recibir los datos
-        $preorden = $_POST["preorden"];
-        $inorden = $_POST["inorden"];
-        $postorden = $_POST["postorden"];
-
-
-        // Convertir los recorridos en arreglos
-        $pre = convertirRecorrido($preorden);
-        $in = convertirRecorrido($inorden);
-        $post = convertirRecorrido($postorden);
-
-
-        // Validar que existan minimo dos recorridos
-        $cantidad = 0;
-
-        if (!empty($pre)) {
-            $cantidad++;
-        }
-
-        if (!empty($in)) {
-            $cantidad++;
-        }
-
-        if (!empty($post)) {
-            $cantidad++;
-        }
-
-        if ($cantidad < 2) {
-
-            throw new Exception("Debes ingresar minimo dos recorridos.");
-
-        }
-
-
-        // Validar que no existan elementos repetidos
-        validarRepetidos($pre);
-        validarRepetidos($in);
-        validarRepetidos($post);
-
-
-        // Validar que los recorridos tengan los mismos nodos
-        validarElementos($pre, $in, $post);
-
-
-        // Crear el objeto
-        $arbol = new ArbolBinario();
-
-
-        // Construir el arbol
-        $arbol->construir($pre, $in, $post);
-
-
-        // Obtener los tres recorridos del arbol
-        $resultadoPre = $arbol->obtenerPreorden();
-        $resultadoIn = $arbol->obtenerInorden();
-        $resultadoPost = $arbol->obtenerPostorden();
-
-
-        // Comprobar que los recorridos sean correctos
-        if (!empty($pre) && $resultadoPre != $pre) {
-
-            throw new Exception("El preorden ingresado no es valido.");
-
-        }
-
-        if (!empty($in) && $resultadoIn != $in) {
-
-            throw new Exception("El inorden ingresado no es valido.");
-
-        }
-
-        if (!empty($post) && $resultadoPost != $post) {
-
-            throw new Exception("El postorden ingresado no es valido.");
-
-        }
-
-
-        // ==========================================
-        // MOSTRAR RESULTADOS
-        // ==========================================
-
-        echo "<h2>Arbol construido correctamente</h2>";
-
-        echo "<h3>Estructura del arbol</h3>";
-
-        $arbol->mostrarArbol();
-
-
-        echo "<h3>Recorridos obtenidos</h3>";
-
-        echo "<p><b>Preorden:</b> ";
-        echo implode(" → ", $resultadoPre);
-        echo "</p>";
-
-        echo "<p><b>Inorden:</b> ";
-        echo implode(" → ", $resultadoIn);
-        echo "</p>";
-
-        echo "<p><b>Postorden:</b> ";
-        echo implode(" → ", $resultadoPost);
-        echo "</p>";
-
-
-    } catch (Exception $e) {
-
-        echo "<h3>Error</h3>";
-
-        echo "<p>" . htmlspecialchars($e->getMessage()) . "</p>";
-
+    // Se usan los dos primeros recorridos disponibles
+    if (!empty($pre) && !empty($in)) {
+        $arbol = crearArbolPreIn($pre, $in);
+    } else if (!empty($in) && !empty($post)) {
+        $arbol = crearArbolPostIn($post, $in);
+    } else {
+        $arbol = crearArbolPrePost($pre, $post);
     }
 
+    $preResultado = [];
+    $inResultado = [];
+    $postResultado = [];
+
+    obtenerPreorden($arbol, $preResultado);
+    obtenerInorden($arbol, $inResultado);
+    obtenerPostorden($arbol, $postResultado);
+
+    // Comprobar que los recorridos escritos por el usuario sean correctos
+    if (
+        (!empty($pre) && $preResultado != $pre) ||
+        (!empty($in) && $inResultado != $in) ||
+        (!empty($post) && $postResultado != $post)
+    ) {
+        header("Location: ../tree.php?error=4");
+        exit;
+    }
+
+    $direccion = "../tree.php?" .
+        "p=" . urlencode(implode(",", $preResultado)) .
+        "&i=" . urlencode(implode(",", $inResultado)) .
+        "&o=" . urlencode(implode(",", $postResultado));
+
+    header("Location: " . $direccion);
+    exit;
 }
